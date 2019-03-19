@@ -1,39 +1,36 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
+#include<string.h>
 int main()
 {
-	int n,ind=0;bool s=true;
-	string str,new_str="";
-	cin>>n>>str;
-	int ss=str.size(),rows=ss/n;
-	char arr[str.size()/n][n];
-	for(int i=0;i<ss;i+=n)
-	{
-		if(s)
-		{
-			for(int j=i,k=0;j<i+n;j++,k++)
-			{
-				arr[ind][k]=str[j];
-			}
-			s=false;
-		}
-		else
-		{
-			for(int j=i+4,k=0;j>=i;j--,k++)
-			{
-				arr[ind][k]=str[j];
-			}
-			s=true;	
-		}
-		ind++;
-	}
-	for(int i=0;i<n;i++)
-	{
-		for(int j=0;j<rows;j++)
-		{
-			cout<<arr[j][i];
-		}
-	}
-	cout<<endl;
-	return 0;
+    int t;
+    scanf("%d",&t);
+    while(t)
+    {
+        char arr[300];
+        scanf("%s",arr);
+        int len=strlen(arr)/t;
+        char ans[len][t];
+        int i,j,k=0;
+        for(i=0;i<len;i++)
+        {
+            if(i%2)
+            {
+                for(j=t-1;j>=0;j--)
+                   ans[i][j]=arr[k++];
+            }
+            else{
+            for(j=0;j<t;j++)
+            {
+                ans[i][j]=arr[k++];
+            }}
+        }
+        for(i=0;i<t;i++)
+        {
+            for(j=0;j<len;j++)
+                printf("%c",ans[j][i]);
+        }
+        printf("\n");
+        scanf("%d",&t);
+    }
+    return 0;
 }
