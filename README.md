@@ -1,1 +1,1 @@
-# spoj classical probelms solutions.
+# spoj classical problems' solutions.
