@@ -1,67 +1,112 @@
+#include<algorithm>
+#include<cstdio>
+#include<iostream>
 #include<bits/stdc++.h>
-#define ll long long
+#include<cstdlib>
+
+#define LL long long
+#define endl "\n"
+ 
 using namespace std;
-
-ll arr[100010],tree[4*100010];
-int t,n,q,x,y,no;
-
-void build(int node,int start,int end){
-	if(start==end){
-		tree[node]=arr[start];
-	}
-	else{
-		int mid=(start+end)/2;
-		build(2*node,start,mid);
-		build(2*node+1,mid+1,end);
-		tree[node]=tree[2*node]+tree[2*node+1];
-	}
+ 
+LL tree[1200001] ;
+LL lazy[1200001] ;
+int a[100001] ;
+ 
+void build(int node,int low,int high);
+void update(int node,int low,int high,int qlow,int qhigh,LL v) ;
+LL query(int node,int low,int high,int qlow,int qhigh) ;
+ 
+int main() 
+{
+ 	int t,n,q,x,y,k ;
+ 	LL v ;
+ 	scanf("%d",&t) ;
+ 	while(t--)
+ 	{
+ 	   scanf("%d %d",&n,&q) ;
+  	   memset(tree,0,sizeof(tree)) ;
+ 	   memset(lazy,0,sizeof(lazy));
+ 	   while(q--)
+ 	   {
+ 	      scanf("%d %d %d",&k,&x,&y) ; 
+ 	     if(k==0)
+ 	     {
+ 	         scanf("%lld",&v) ;
+ 	         update(1,0,n-1,x-1,y-1,v) ;
+ 	     }
+ 	     else
+ 	     {
+ 	         cout<<query(1,0,n-1,x-1,y-1)<<endl ;
+ 	     }
+ 	   }
+  	 }
+	return 0;
 }
-
-int query(int node,int start,int end,int l,int r){
-	if(r<start or end<l) return 0;
-
-	if(l<=start and end<=r){
-		return tree[node];
-	}
-	int mid = (start + end) / 2;
-    int p1 = query(2*node, start, mid, l, r);
-    int p2 = query(2*node+1, mid+1, end, l, r);
-    return (p1 + p2);
+void build(int node,int low,int high)
+{
+	if(low>high)
+	return ;
+    if(low==high){
+        tree[node] = a[low] ;
+        return;
+    }
+    build(2*node,low,(low+high)/2) ;
+    build(2*node+1,(low+high)/2+1,high);
+    tree[node]=tree[2*node]+tree[2*node+1];
 }
-
-
-void update(int node,int start,int end,int idx,int val){
-	if(start==end){
-		arr[idx]+=val;
-		tree[node]+=val;
-	}
-	else{
-		int mid = (start + end) / 2;
-        if(start <= idx and idx <= mid) update(2*node, start, mid, idx, val);
-        else update(2*node+1, mid+1, end, idx, val);
-        tree[node] = tree[2*node] + tree[2*node+1];
-	}
+void update(int node,int low,int high,int qlow,int qhigh,LL v)
+{
+    if(lazy[node])
+    {
+        tree[node] += (lazy[node]*((LL)(high - low + 1)))  ;
+ 
+        if(low!=high)
+        {
+            int mid = (low + high)/2 ;
+            lazy[2*node] += lazy[node] ;
+            lazy[2*node+1] +=lazy[node] ;
+        }
+        lazy[node] = 0 ;
+    }
+    if(qlow > high || qhigh < low || low > high)
+     return ;
+    if(qlow<=low && qhigh>=high)
+    {
+        tree[node] += (v*((LL)(high - low + 1) ));
+        if(low!=high)
+        {
+            lazy[2*node] += v ;  
+            lazy[2*node+1] += v ;
+        }
+ 
+        return ;   /* because we are lazy to go deeper :D */
+    }
+ 
+    update(2*node,low,(low+high)/2,qlow,qhigh,v) ;
+    update(2*node+1,(low+high)/2 + 1,high,qlow,qhigh,v) ;
+ 
+    tree[node] = tree[2*node] + tree[2*node+1] ;
 }
-
-int main(){
-
-	cin>>t;
-	while(t--){
-		memset(tree,0,sizeof tree);
-		cin>>n>>q;
-		for(int i=1;i<=n;i++)
-			cin>>arr[i];
-		while(q--){
-			cin>>d;
-			if(d==0){
-				cin>>x>>y>>no;
-				update(1,1,n,x,y,no);
-			}
-			else{
-				cin>>x>>y;
-				cout<<query(1,1,n,x,y)<<endl;
-			}
-		}
-	}
-
+LL query(int node,int low,int high,int qlow,int qhigh)
+{
+    if(low > high || qlow > high || qhigh < low)
+     return 0 ;
+    if(lazy[node])
+    {
+        tree[node] += (lazy[node]*((LL)(high - low + 1)))  ;
+        if(low!=high)
+        {
+            int mid = (low + high)/2 ;
+            lazy[2*node] +=lazy[node] ;
+            lazy[2*node+1] +=lazy[node] ;
+        }
+        lazy[node] = 0 ;
+    }
+    if(qlow<=low && qhigh>=high)
+     { 
+      return (tree[node]);
+     }
+   int mid = (high + low)/2 ; 
+   return (query(2*node,low,mid,qlow,qhigh) + query(2*node+1,mid + 1,high,qlow,qhigh)) ;  
 }
