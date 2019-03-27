@@ -1,1 +1,1 @@
-# spoj
+# spoj classical problems' solutions.
