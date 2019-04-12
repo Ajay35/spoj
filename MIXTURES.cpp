@@ -16,18 +16,15 @@ int csum(int a,int b){
 	return sum;
 }
 int solve(int a,int b){
-	 if(dp[a][b]!=-1)
-		return dp[a][b];
-	 if(a==b)
-		return 0;
-	  int ret=dp[a][b];
+	 if(dp[a][b]!=-1) return dp[a][b];
+	 if(a==b) return 0;
+	 int ret=dp[a][b];
 	  
-	  for(int k=a;k+1<=b;k++){
-		  int temp=solve(a,k)+solve(k+1,b)+csum(a,k)*csum(k+1,b);
-		  if(ret==-1||temp<ret)
-			ret=temp;
-	  }
-		return (dp[a][b]=ret);
+	 for(int k=a;k+1<=b;k++){
+	  int temp=solve(a,k)+solve(k+1,b)+csum(a,k)*csum(k+1,b);
+	  if(ret==-1||temp<ret)	ret=temp;
+	 }
+	 return (dp[a][b]=ret);
 }
 			
 int main(){
