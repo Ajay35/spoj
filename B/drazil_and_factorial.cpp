@@ -31,22 +31,20 @@ int main(){
 		facts[i]=facts[i-1]*i;
 	}
 
-	//sort(str.begin(),str.end());
+	sort(str.begin(),str.end());
 
 	string sol="";
 	for(i=0;i<n;i++)
 	{
-		if(str[i]=='1') continue;
-
-		LL no=facts[(str[i]-'0')];
-		for(j=(str[i]-'0')-1;j>=2;j--)
-		{
-			while(no%facts[j]==0)
-			{
-				no=no/facts[j];
-				sol+= (j+'0');
-			}
-		}
+		if(str[i]=='1' or str[i]=='0') continue;
+		if(str[i]=='2') sol+='2';
+		if(str[i]=='3') sol+='3';
+		if(str[i]=='4') sol+="223";
+		if(str[i]=='5') sol+='5';
+		if(str[i]=='6') sol+="35";
+		if(str[i]=='7') sol+='7';
+		if(str[i]=='8') sol+="2227";
+		if(str[i]=='9') sol+="3327";
 	}
 	sort(sol.begin(),sol.end());
 	reverse(sol.begin(),sol.end());
