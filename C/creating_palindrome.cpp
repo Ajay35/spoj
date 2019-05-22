@@ -6,7 +6,8 @@ using namespace std;
 int ans = 0xffff, n, m;
 int A[10005];
 map<pair<int, int>, int> R;
-void dfs(int l, int r, int sum) {
+void dfs(int l, int r, int sum) 
+{
     if(l > r || sum >= ans) {
         if(sum < ans)
             ans = sum;
@@ -17,7 +18,8 @@ void dfs(int l, int r, int sum) {
         x = sum;
         if(A[l] == A[r])
             dfs(l+1, r-1, sum);
-        else {
+        else 
+        {
             dfs(l, r-1, sum+1);
             dfs(l+1, r, sum+1);
         }

@@ -7,9 +7,11 @@ vector<int> v;
 
 int f(int a, int b)
 {
-    if(b-a==1) return 0;
+    if(b-a==1) 
+        return 0;
     
-    if(memo[a][b]!=-1) return memo[a][b];
+    if(memo[a][b]!=-1) 
+        return memo[a][b];
     
     int x=4000000;
     

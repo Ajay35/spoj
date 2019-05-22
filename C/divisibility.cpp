@@ -17,9 +17,12 @@ int dp[10007][100];
 
 bool solve(int i,int r)
 {
-	if(i==n && r==0) return 1;
-	if(i==n) return 0;
-	if( dp[i][r] != -1 ) return dp[i][r];
+	if(i==n && r==0) 
+		return 1;
+	if(i==n) 
+		return 0;
+	if( dp[i][r] != -1 ) 
+		return dp[i][r];
 	dp[i][r]=solve(i+1,(r+a[i])%k);
 	return dp[i][r] |= solve(i+1,(r-a[i])%k);
 }

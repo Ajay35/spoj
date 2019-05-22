@@ -18,7 +18,8 @@ LL dp[61][61];
 LL f(int i,int j)
 {
 	if(i>j) return 0;
-	if(dp[i][j]!=-1) return dp[i][j];
+	if(dp[i][j]!=-1) 
+		return dp[i][j];
 	LL val=f(i+1,j)+f(i,j-1)-f(i+1,j-1);
 	if(s[i]==s[j])
 	{
