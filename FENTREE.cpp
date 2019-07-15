@@ -4,7 +4,8 @@ using namespace std;
 const int NMAX=500010;
 ll arr[NMAX],tree[NMAX];
 
-ll read(int x){
+ll read(int x)
+{
 	ll sum=0;
 
 	while(x>0){
@@ -13,10 +14,12 @@ ll read(int x){
 	}
 	return sum;
 }
-ll query(int a,int b){
+ll query(int a,int b)
+{
 	return read(b)-read(a-1);
 }
-void update(int  id,ll val){
+void update(int  id,ll val)
+{
 	while(id<NMAX){
 		tree[id]+=val;
 		id+= (id & -id);

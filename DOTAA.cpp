@@ -16,13 +16,16 @@ int main(int argc, char const *argv[]) {
 
     priority_queue <int, vector<int>> pq(arr.begin(),arr.end());
     bool good=1;
-    for(int i=0;i<m;i++){
-      if(pq.top()>d){
+    for(int i=0;i<m;i++)
+    {
+      if(pq.top()>d)
+      {
         int a=pq.top()-d;
         pq.pop();
         pq.push(a);
       }
-      else{
+      else
+      {
         good=0;
         break;
       }

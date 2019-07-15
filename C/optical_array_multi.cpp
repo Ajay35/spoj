@@ -28,7 +28,8 @@ int f(int i,int j)
 		count=f(i,k);
 		count+=f(k+1,j);
 		count+=(p[i-1]*p[k]*p[j]);
-		if(count<dp[i][j]){
+		if(count<dp[i][j])
+		{
 			dp[i][j]=count;
 			s[i][j]=k;
 		}
@@ -38,7 +39,8 @@ int f(int i,int j)
 
 void print_solution(int i,int j)
 {
-	if(i==j){
+	if(i==j)
+	{
 		cout<<"A"<<t++;
 		return;
 	}
@@ -50,7 +52,8 @@ void print_solution(int i,int j)
 }
 
 
-int main(){
+int main()
+{
 		
 	#ifndef ONLINE_JUDGE
 	freopen("input.txt","r",stdin);

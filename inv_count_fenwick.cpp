@@ -27,26 +27,26 @@ void update(int idx ,llong val){
  
 int main(int argc, char *argv[]) {
    int N,t;
-   scanf("%d",&t);
-   while(t--) {
-      scanf("%d",&N);
-      memset(tree, 0, sizeof(tree));      
-      for(int i = 0; i < N; ++i) {
-         scanf("%lld",&A[i]);
-         B[i] = A[i];
-      }
-      sort(B, B + N);
-      for(int i = 0; i < N; ++i) {
-         int rank = int(lower_bound(B, B + N, A[i]) - B);
-         A[i] = rank + 1;
-      }
-      llong inv_count = 0;
-      for(int i = N - 1; i >= 0; --i) {
-         llong x = read(A[i] - 1);
-         inv_count += x;
-         update(A[i], 1);
-      }
-      printf("%lld\n",inv_count);
-   }
+
+   
+	scanf("%d",&N);
+	memset(tree, 0, sizeof(tree));      
+	for(int i = 0; i < N; ++i) {
+	 scanf("%lld",&A[i]);
+	 B[i] = A[i];
+	}
+	sort(B, B + N);
+	for(int i = 0; i < N; ++i) {
+	 int rank = int(lower_bound(B, B + N, A[i]) - B);
+	 A[i] = rank + 1;
+	}
+	llong inv_count = 0;
+	for(int i = N - 1; i >= 0; --i) {
+	 llong x = read(A[i] - 1);
+	 inv_count += x;
+	 update(A[i], 1);
+	}
+	cout<<inv_count;
+   
    return 0;
 }

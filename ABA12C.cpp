@@ -31,13 +31,7 @@ int main(){
                     else dp[i][j] = dp[i-1][j];
                }
           }
-          // TRY PRINTING THE WHOLE DP TABLE !
-          //for(ll i=0;i<apple.size()+1;i++){
-          //     for(ll j=0;j<k+1;j++){
-          //            cout<<dp[i][j]<<" ";
-          //     }
-          //     cout<<"\n";
-          //}
+         
 
           if(dp[apple.size()][k] == 1000000) printf("-1\n");
           else printf("%lld\n",dp[apple.size()][k]);

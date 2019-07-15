@@ -24,16 +24,16 @@ using namespace std;
 
 void fastio()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
+  cout.tie(0);
 }
 void inputread()
 {
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
+  #ifndef ONLINE_JUDGE
+  freopen("input.txt","r",stdin);
+  freopen("output.txt","w",stdout);
+  #endif
 }
 int a[5001];
 int tree[4*5001];
@@ -41,30 +41,30 @@ int tree[4*5001];
 void 
 
 int main(){
-        
-    fastio();
-    inputread();
-    LL n,m,i,j,k,t;
-    cin>>n;
-    
-    for(i=0;i<n;i++)
-    {
-      cin>>m;
-      ind[m]=i+1;
-    }
-    LL sum=0;
-    for(i=0;i<n;i++)
-    {
-      for(j=i;j<n;j++){
-          for(k=i;k<=j;k++)
-          {
+      
+  fastio();
+  inputread();
+  LL n,m,i,j,k,t;
+  cin>>n;
+  
+  for(i=0;i<n;i++)
+  {
+    cin>>m;
+    ind[m]=i+1;
+  }
+  LL sum=0;
+  for(i=0;i<n;i++)
+  {
+    for(j=i;j<n;j++){
+      for(k=i;k<=j;k++)
+      {
 
-          }
       }
     }
-    cout<<sum;
+  }
+  cout<<sum;
 
-    return 0;
+  return 0;
 }
 
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 int A[500000], X[500000];
-long long merge(int l, int m, int r) {
+long long merge(int l, int m, int r) 
+{
     int idx1 = l, idx2 = m+1, top = 0;
     int i, j;
     long long cnt = 0, subans = 0;
@@ -16,7 +17,8 @@ long long merge(int l, int m, int r) {
         A[j] = X[i];
     return subans;
 }
-void solve(int *A, int n) {
+void solve(int *A, int n) 
+{
     int i, j;
     long long ans = 0;
     for(i = 1; i < n; i <<= 1) {
@@ -32,7 +34,8 @@ void solve(int *A, int n) {
 }
 int main() {
     int n, i;
-    while(scanf("%d", &n), n) {
+    while(scanf("%d", &n), n) 
+    {
         for(i = 0; i < n; i++)
             scanf("%d", &A[i]);
         solve(A, n);
