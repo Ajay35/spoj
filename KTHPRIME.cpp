@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -14,6 +14,7 @@
 #include <queue>
 #include <map>
 #include <set>
+#include <bitset>
 #include <ctime>
 #include <string.h>
 #define ll long long
@@ -29,7 +30,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +44,34 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
+const int SIZE = 100000000;
+const int LIMIT = sqrt(SIZE)+1;
  
+unsigned prime[SIZE>>5];
+ 
+	void sieve() {
+		for(int i=0;i<SIZE>>5;i++) prime[i]=0xffff;
+		prime[0]&=~(1<<1);
+		for(int i=2;i<=LIMIT;i++) 
+			if(prime[i>>5]&(1<<(i&31))) 
+				for(int j=2*i;j<SIZE;j+=i)
+					prime[j>>5]&=~(1<<(j&31));
+ 
+	}
+ 
+	bool isPrime(int n) {
+		return prime[n>>5]&(1<<(n&31));
+	}
 int main()
 {      
   fastio();
   input();
+  sieve();
   int n,m,i,j,t;
-  while(true)
+  for(i=2;i<=100000000;i++)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	if(isPrime(i))
+  		cout<<i<<"\n";
   }
   return 0;
-} 
+}

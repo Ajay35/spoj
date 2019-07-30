@@ -43,48 +43,48 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
-const int N=5000001;
-
-ll seq[2*N];
-
-void seive()
+ll power(ll x,ll y)
 {
-	int i,j;
-	seq[0]=0;
-	seq[1]=0;
-	for(i=2;i*i<=10000000;i++)
+	ll res=1;
+	while(y)
 	{
-		if(seq[i]==0)
-		{
-			seq[i]=i;
-			for(j=2*i;j<=10000000;j+=i)
-			{
-				if(seq[j]==0)
-					seq[j]=i;
-			}
-		}
+		if(y&1)
+			res=res*x;
+		x=x*x;
+		y>>=1;
 	}
-	for(j=i;j<=10000000;j++)
-		if(seq[j]==0)
-			seq[j]=j;
+	return res;
 }
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  seive();
-  seq[0]=0;
-  seq[1]=0;
-
-  for(i=2;i<=10000000;i++)
-  	seq[i]+=seq[i-1];
-
-  cin>>t;
-  while(t--)
+  int n,m,i,j,k;
+  int cs=1;
+  while(true)
   {
   	cin>>n;
-  	cout<<seq[n]<<"\n";
+  	if(n==-1)
+  		break;
+  	int C[n+1];
+  	for(i=0;i<=n;i++)
+  		cin>>C[i];
+ 
+  	cin>>k;
+  	
+  	for(i=1;i<=k;i++)
+  	{
+  		cout<<"Case "<<cs++<<":"<<"\n";
+	  	while(k--)
+	  	{
+	  		int x;
+	  		cin>>x;
+	  		ll ans=C[0];
+	  		for(j=1;j<=n;j++)
+	  			ans=ans*x+C[j];
+	  		cout<<ans<<"\n";
+	  	}
+	}
   }
   return 0;
 }

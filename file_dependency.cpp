@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,46 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+const int N=101;
+vi g[N];
+int in_deg[N];
+
 int main()
 {      
   fastio();
   input();
   int n,m,i,j,t;
-  while(true)
+  cin>>n>>m;
+  for(i=1;i<=m;i++)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	int a,b,c;
+  	cin>>a>>b;	
+  	while(b--)
+  	{
+  		cin>>c;
+  		g[c].pb(a);
+  		in_deg[a]++;
+  	}
   }
+  priority_queue<int,vi,greater<int>> que;
+  for(i=1;i<=n;i++)
+  {
+  	if(in_deg[i]==0)
+  		que.push(i);
+  }	
+  vi ans;
+  while(!que.empty())
+  {
+  	int cur=que.top();
+  	ans.pb(cur);
+  	que.pop();
+  	for(i=0;i<g[cur].size();i++)
+  	{
+  		if(--in_deg[g[cur][i]]==0)
+  			que.push(g[cur][i]);
+  	}
+  }
+  for(i=0;i<ans.size();i++)
+  	cout<<ans[i]<<" ";
   return 0;
-} 
+}

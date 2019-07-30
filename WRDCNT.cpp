@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,48 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+
 int main()
 {      
   fastio();
   input();
   int n,m,i,j,t;
-  while(true)
+  cin>>t;
+  string s;
+  getline(cin,s);
+  while(t--)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	getline(cin,s);
+  	vector<char> v;
+  	vi a;
+  	for(i=0;i<s.size();i++)
+  	{
+  		if(s[i]!=' ')
+  			v.pb(s[i]);
+  		else
+  		{
+  			a.pb(v.size());
+  			v.clear();
+  		}
+  	}
+  	if(v.size()>0)
+  		a.pb(v.size());
+  	int mx=0,cur=a[0],cur_l=1;
+  	for(i=1;i<a.size();i++)
+  	{
+  		if(a[i]==a[i-1])
+  		{
+  			cur_l+=1;
+  			mx=max(mx,cur_l);
+  		}
+  		else
+  		{
+  			mx=max(cur_l,mx);
+  			cur=a[i];
+  			cur_l=1;
+  		}
+  	}
+  	cout<<mx<<endl;
   }
   return 0;
-} 
+}

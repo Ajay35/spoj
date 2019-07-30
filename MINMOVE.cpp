@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,37 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
 int main()
-{      
-  fastio();
-  input();
-  int n,m,i,j,t;
-  while(true)
-  {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
+{
+	fastio();
+	input();
+	int t,L,i,j,n;
+	char s[200010];
+	cin>>t;
+	while(t--)
 	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
+		cin>>(s);
+		L=strlen(s);
+		memcpy(s+L,s,L);
+		i=0;
+		j=1;
+		n=0;
+		while (i<L&&j<L&&n<L)
+		{
+			if (s[i+n]==s[j+n])
+				n++;
+			else
+			{
+				if (s[i+n]<s[j+n])
+					j+=n+1;
+				else
+					i+=n+1;
+				if (i==j)
+					j=i+1;
+				n=0;
+			}
+		}
+		printf("%d\n",(i<j?i:j)+1);
 	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
-  }
-  return 0;
-} 
+	return 0;
+}

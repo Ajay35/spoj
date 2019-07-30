@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -16,20 +16,21 @@
 #include <set>
 #include <ctime>
 #include <string.h>
-#define ll long long
+#define loop(i,a,b) for(int i=a;i<b;i++)
+#define loope(i,a,b) for(int i=a;i<=b;i++)
+#define LL long long
 #define inf 0x7fffffff
 #define mod 1000000007
 #define pb push_back
 #define ppi pair<int,int>
 #define vi vector<int>
-#define vvi vector<vector<int>>
 #define vii vector<ppi>
-#define vll vector<ll>
+#define vll vector<LL>
 #define mp make_pair
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +44,39 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+const int N=100001;
+vi g[N];
+int dp1[N],dp2[N];
+
+void dfs(int cur,int p)
+{
+	for(int it:g[cur])
+	{
+		if(it==p)
+			continue;
+		dfs(it,cur);
+		dp1[cur]+=min(dp1[it],dp2[it]);
+		dp2[cur]+=dp1[it];
+	}
+	dp1[cur]+=1;
+}
+
+
 int main()
 {      
   fastio();
   input();
   int n,m,i,j,t;
-  while(true)
+  cin>>n;
+  for(i=0;i<n-1;i++)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	int a,b;
+  	cin>>a>>b;
+  	g[a].pb(b);
+  	g[b].pb(a);
   }
+  dfs(1,0);
+  cout<<min(dp1[1],dp2[1]);
+  
   return 0;
-} 
+}

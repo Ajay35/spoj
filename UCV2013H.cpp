@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,55 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+const int N=250;
+int map1[100001];
+char grid[N][N];
+int sz;
+bool valid(int i,int j,int n,int m)
+{
+	return (i>=0 && i<n && j>=0 && j<m && grid[i][j]!='0');
+}
+void dfs(int i,int j,int n,int m)
+{
+	if(!valid(i,j,n,m))
+		return;
+	grid[i][j]='0';
+	sz++;
+	dfs(i+1,j,n,m);
+	dfs(i-1,j,n,m);
+	dfs(i,j+1,n,m);
+	dfs(i,j-1,n,m);
+}
 int main()
 {      
   fastio();
   input();
   int n,m,i,j,t;
-  while(true)
+  while(cin>>n>>m)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	  int c=0;
+	  if(n==0 && m==0) break;
+	  for(i=0;i<n;i++)
+	  	for(j=0;j<m;j++)
+	  		cin>>grid[i][j];
+	  for(i=0;i<n;i++)
+	  {
+	  	for(j=0;j<m;j++)
+	  	{
+	  		if(grid[i][j]=='1')
+	  		{
+	  			sz=0;
+	  			c++;
+	  			dfs(i,j,n,m);
+	  			map1[sz]++;
+	  		}
+	  	}
+	  }
+	  cout<<c<<"\n";
+	  for(i=1;i<=(250*250);i++)
+	   if(map1[i]!=0)
+	   		cout<<i<<" "<<map1[i]<<"\n";
+	  memset(map1,0,sizeof map1);
   }
   return 0;
-} 
+}

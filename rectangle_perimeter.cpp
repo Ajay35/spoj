@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,30 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+const int N=1001;
+ll n;
+ll a[N],b[N];
+ll dp[N][N];
+
+ll f(ll i,ll p)
+{
+	if(i==n)
+		return 0;
+	if(dp[i][p]!=-1)
+		return dp[i][p];
+	ll& ans=dp[i][p];
+	ans=0;
+	return ans=max(a[i]+max(b[i],p)-min(b[i],p)+f(i+1,b[i]),b[i]+max(a[i],p)-min(a[i],p)+f(i+1,a[i]));
+}
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  while(true)
-  {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
-  }
+  int i,j,t;
+  cin>>n;
+  for(i=0;i<n;i++)
+  	cin>>a[i]>>b[i];
+  memset(dp,-1,sizeof dp);
+  cout<<max(a[0]+f(1,b[0]),b[0]+f(1,a[0]));
   return 0;
-} 
+}

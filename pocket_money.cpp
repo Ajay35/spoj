@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,58 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+
+string s;
+int n;
+ll dp1[101][101],dp2[101][101];
+ll f1(int i,int j)
+{
+	if(i==j)
+		return s[i]-'0';
+	if(dp1[i][j]!=-1)
+		return dp1[i][j];
+	ll& ans=dp1[i][j];
+	ans=0;
+	for(int k=i;k<=j;k++)
+	{
+		if(s[k]=='+')
+			ans=max(ans,(f1(i,k-1)+f1(k+1,j)));
+		else if(s[k]=='*')
+			ans=max(ans,(f1(i,k-1)*f1(k+1,j)));
+	}
+	return ans;
+}
+
+ll f2(int i,int j)
+{
+	if(i==j)
+		return s[i]-'0';
+	if(dp2[i][j]!=-1)
+		return dp2[i][j];
+	ll& ans=dp2[i][j];
+	ans=inf;
+	for(int k=i;k<=j;k++)
+	{
+		if(s[k]=='+')
+			ans=min(ans,(f2(i,k-1)+f2(k+1,j)));
+		else if(s[k]=='*')
+			ans=min(ans,(f2(i,k-1)*f2(k+1,j)));
+	}
+	return ans;
+}
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  while(true)
+  int i,j,t;
+  cin>>t;
+  while(t--)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	cin>>s;
+  	n=s.size();
+  	memset(dp1,-1,sizeof dp1);
+  	memset(dp2,-1,sizeof dp2);
+  	cout<<f1(0,n-1)<<" "<<f2(0,n-1)<<"\n";
   }
   return 0;
-} 
+}

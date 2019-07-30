@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,41 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  while(true)
+  ll n,k,i,j,t;
+  cin>>t;
+  while(t--)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	cin>>n>>k;
+  	char p='F';
+  	ll l=1,r=pow(2,54);
+  	while(l<=r)
+  	{
+  		ll mid=(l+r)/2;
+  		if(mid==k)
+  		{
+  			if(p=='M')
+  				cout<<"Male"<<"\n";
+  			else
+  				cout<<"Female"<<"\n";
+  			break;
+  		}
+  		else if(mid<k)
+  		{
+  			(p=='M')?p:p='F';
+  			l=mid+1;
+  		}
+  		else
+  		{
+  			(p=='M')?p='F':p='M';
+  			r=mid-1;
+  		}
+  		
+  	}
   }
   return 0;
-} 
+}

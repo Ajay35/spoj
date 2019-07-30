@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,56 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+const int N=250;
+int sh,wo;
+char grid[N][N];
+bool vis[N][N];
+bool valid(int i,int j,int n,int m)
+{
+	return (i>=0 && i<n && j>=0 && j<m && grid[i][j]!='#' && !vis[i][j]);
+}
+pair<int,int> dfs(int i,int j,int n,int m)
+{
+	if(!valid(i,j,n,m))
+		return mp(sh,wo);
+	vis[i][j]=1;
+	if(grid[i][j]=='k') sh++;
+	if(grid[i][j]=='v') wo++;
+	dfs(i+1,j,n,m);
+	dfs(i-1,j,n,m);
+	dfs(i,j+1,n,m);
+	dfs(i,j-1,n,m);
+}
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  while(true)
+  int n,m,i,j,w=0,s=0;
+  cin>>n>>m;
+  for(i=0;i<n;i++)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	for(j=0;j<m;j++)
+  	{
+  		cin>>grid[i][j];
+  		if(grid[i][j]=='k')
+  			s++;
+  		if(grid[i][j]=='v')
+  			w++;
+  	}
   }
+  for(i=0;i<n;i++)
+  {
+  	for(j=0;j<m;j++)
+  	{
+  		sh=0;
+  		wo=0;
+  		dfs(i,j,n,m);
+  		if(sh>wo)
+  			w-=wo;
+  		else
+  			s-=sh;
+  	}
+  }
+  cout<<s<<" "<<w;
   return 0;
-} 
+}

@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,69 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+bool p[10001];
+int st[10001];
+vi primes;
+void seive()
+{
+	int i,j;
+	memset(p,true,sizeof p);
+	p[0]=0;
+	p[1]=0;
+	for(i=2;i*i<=sqrt(100001);i++)
+	{
+		if(p[i])
+		{
+			for(j=i*i;j<=10000;j+=i)
+				p[j]=0;
+		}
+	}
+	for(i=2;i<=10000;i++)
+		if(p[i])
+			primes.pb(i);
+}
+void prime_factor(int n)
+{
+	int i,j,ret=-1;
+	for(i=0;i<primes.size();i++)
+	{
+		while(n>0 && n%primes[i]==0)
+		{
+
+			st[primes[i]]++;
+			n=n/primes[i];
+		}
+	}
+	if(n>0)
+		st[n]++;
+}
 int main()
 {      
   fastio();
   input();
   int n,m,i,j,t;
-  while(true)
+  cin>>n;
+  seive();
+  for(i=n;i>=1;i--)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	prime_factor(i);
+  }
+  vector<string> a;
+  for(i=10000;i>=2;i--)
+  	if(st[i]>0)
+  		break;
+  for(j=2;j<=i;j++)
+  {
+  	if(j!=i)
+  	{
+  		if(p[j] && st[j]>0 )
+  			cout<<j<<"^"<<st[j]<<" * ";
+  	}
+  	else
+  	{
+  		if(p[j] && st[j]>0 )
+  			cout<<j<<"^"<<st[j];	
+  	}
   }
   return 0;
-} 
+}

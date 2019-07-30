@@ -2,7 +2,7 @@
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +29,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +43,37 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  while(true)
+  int x,y,n,m,i,j;
+  cin>>n>>m;
+  cin>>x>>y;
+  int grid[n+1][m+1];
+  for(i=1;i<=n;i++)
+  	for(j=1;j<=m;j++)
+  		cin>>grid[i][j];
+  
+  for(i=x;i<=n;i++)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	for(j=y;j<=m;j++)
+  	{
+  		if(i==x or j==y)
+  		{
+  			if(i==x && j>y)
+  				grid[i][j]=grid[i][j-1]-grid[i][j];
+  			else if(i>x && j==y)
+  				grid[i][j]=grid[i-1][j]-grid[i][j];
+  		}
+  		else
+  			grid[i][j]=max(grid[i-1][j]-grid[i][j],grid[i][j-1]-grid[i][j]);
+  	}
   }
+  if(grid[n][m]>=0)
+  	cout<<"Y "<<grid[n][m];
+  else
+  	cout<<"N";
   return 0;
-} 
+}

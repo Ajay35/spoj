@@ -1,8 +1,9 @@
+
 /**
 *	  Name: Ajay
 *	  Institute: IIITH 
 */
- 
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -29,7 +30,7 @@
 #define fi first
 #define se second
 using namespace std;
- 
+
 void fastio()
 {
   ios_base::sync_with_stdio(false);
@@ -43,33 +44,30 @@ void input()
   freopen("output.txt","w",stdout);
   #endif
 }
- 
+
 int main()
 {      
   fastio();
   input();
-  int n,m,i,j,t;
-  while(true)
+  ll n,i,j;
+  while(cin>>n)
   {
-	cin>>n;
-	if(n==0) 
-		break;
-	vi a;
-	for(i=1;i<=n;i++)
-	{
-	  int x;
-	  cin>>x;
-	  a.pb(x);
-	}
-	sort(a.begin(),a.end());
-	int mx=0;
-	for(i=1;i<n;i++)
-		mx=max(mx,a[i]-a[i-1]);
-	mx=max(mx,2*(1422-a[n-1]))	;
-	if(mx>200)
-		cout<<"IMPOSSIBLE"<<"\n";
-	else
-		cout<<"POSSIBLE"<<"\n";
+  	if(n==0)
+  		break;
+  	for(i=2;i<=sqrt(n);i++)
+  	{
+  		int c=0;
+  		while(n%i==0)
+  		{
+  			n=n/i;
+  			c++;
+  		}
+  		if(c)
+  			cout<<i<<"^"<<c<<" ";
+  	}
+  	if(n>2)
+  		cout<<n<<"^1";
+  	cout<<"\n";
   }
   return 0;
-} 
+}
